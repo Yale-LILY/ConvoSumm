@@ -1,0 +1,66 @@
+version = "1.9"
+debug = false
+
+[path]
+input = "data/input"
+output = "data/output"
+
+[nlp]
+language = "de" # de, en
+embeddings = "spacy"
+nltk_model = "german" # english, german
+spacy_model = "de_core_news_md" # en_core_web_lg, de_core_news_md
+
+[flask]
+name = "ReCAP-Argument-Mining"
+host = "0.0.0.0"
+port = 80
+
+[export]
+picture = true
+json = true
+
+[evaluation]
+similarity = "edit"
+
+[relation]
+en_model = "data/relation/logreg_en.sav"
+de_model = "data/relation/logreg_de.sav"
+
+method = "adu_position" # adu_position, flat_tree, pairwise_comparison
+threshold = 0.6
+fallback = "support" # none, support, attack
+
+[adu]
+#["RandomForest","SVC","LogisticRegression","AdaBoost","XGBoost","XGBRF","AutoML","Stacking"]
+#["standard","GridSearch", "RandomSearch"]
+model = "Stacking"
+train_method = "RandomSearch"
+n_splits = 3
+
+[adu.MC]
+method = "pairwise" # pairwise, centroid, first, relations
+
+[adu.path]
+input = "data/ADU/in/PE/en"
+output = "data/out/out.txt"
+label = "data/ADU/in/PE/en"
+
+[adu.stacking]
+estimator_stack = ["rf","ada","log"]
+final_estimator = "xgbrf"
+passthrough = true
+
+[adu.auxiliary]
+dir = "data/ADU/auxiliary"
+vocab = "vocab.pkl"
+tfidf = "TF-IDF.pkl"
+freqdist = "FreqDist.pkl"
+
+[adu.feature_selection]
+#["VT","scale","PCA","select_kbest","PCA_selectk_union"]
+methods = ["VT","scale"]
+dir =  "data/ADU/feature_selection"
+scaler = "scaler"
+#["Robust","Power","MinMax","Standard","QuantileUniform","QuantileGaussian"]
+scaling_method = "Robust"

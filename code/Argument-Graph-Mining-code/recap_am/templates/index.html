@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Optional Bootstrap JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+    <!-- Font Awesome 5 -->
+    <link href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.11.2/js/all.js"></script>
+
+    <!-- Custom CSS and JS files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+
+    <title>{{ config["flask"]["name"] }}</title>
+</head>
+
+<body>
+<div class="container" id="content">
+    <h1>{{ config["flask"]["name"] }}</h1>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == "error" %}
+                    <div class="alert alert-danger" role="alert">
+                        {{ message | replace("\n", "<br>") | replace(" ", "&nbsp;&nbsp;") | safe }}
+                    </div>
+                {% elif category == "warning" %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ message | replace("\n", "<br>") | replace(" ", "&nbsp;&nbsp;") | safe }}
+                    </div>
+                {% elif category == "info" %}
+                    <div class="alert alert-info" role="alert">
+                        {{ message | replace("\n", "<br>") | replace(" ", "&nbsp;&nbsp;") | safe }}
+                    </div>
+                {% else %}
+                    <div class="alert alert-success" role="alert">
+                        {{ message | replace("\n", "<br>") | replace(" ", "&nbsp;&nbsp;") | safe }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+
+    <div class="my-4"></div>
+
+
+    <h2>Parameters</h2>
+    <form id="parameters" method="POST" enctype="multipart/form-data" action="/">
+        <div class="row">
+            <div class="form-group col">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="export-json" id="export-json"
+                               value="1" {% if config["export"]["json"] %}checked{% endif %}>
+                        Export json
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="export-picture" id="export-picture"
+                               value="1" {% if config["export"]["json"] %}checked{% endif %}>
+                        Export picture
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col">
+                <label for="mc-method">MC method</label>
+                <input type="text" class="form-control" name="mc-method" id="mc-method"
+                       aria-describedby="mc-method-help" value="{{ config['adu']['MC']['method'] }}">
+                <small id="mc-method-help" class="form-text text-muted">centroid, first, pairwise, relations</small>
+            </div>
+
+            <div class="form-group col">
+                <label for="relation-method">Relation method</label>
+                <input type="text" class="form-control" name="relation-method" id="relation-method"
+                       aria-describedby="relation-method-help" value="{{ config['relation']['method'] }}">
+                <small id="relation-method-help" class="form-text text-muted">adu_position, flat_tree, pairwise_comparison</small>
+            </div>
+
+            <div class="form-group col">
+                <label for="relation-fallback">Relation fallback</label>
+                <input type="text" class="form-control" name="relation-fallback" id="relation-fallback"
+                       aria-describedby="relation-fallback-help" value="{{ config['relation']['fallback'] }}">
+                <small id="relation-fallback-help" class="form-text text-muted">attack, none, support</small>
+            </div>
+
+            <div class="form-group col">
+                <label for="relation-threshold">Relation threshold</label>
+                <input type="text" class="form-control" name="relation-threshold" id="relation-threshold"
+                       aria-describedby="relation-threshold-help" value="{{ config['relation']['threshold'] }}">
+                <small id="relation-threshold-help" class="form-text text-muted">float</small>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col form-group">
+                <label for="query-file">Queries</label>
+                <input type="file" multiple class="form-control-file" name="query-files" id="query-files" placeholder=""
+                       aria-describedby="query-files-help">
+                <small id="query-file-help" class="form-text text-muted">Leave empty to load all available queries in
+                    the input path.</small>
+            </div>
+
+            <div class="form-group col">
+                <label for="input-path">Input path</label>
+                <input type="text" class="form-control" name="input-path" id="input-path"
+                       aria-describedby="input-path-help" value="{{ config['path']['input'] }}">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="my-5"></div>
+    </form>
+
+
+    {% if statistics %}
+        <h2>Results</h2>
+        <p><a href="{{ url_for('download', folder=statistics.name) }}">Download ZIP</a></p>
+        <div id="statistics" class="row">
+            <table class="table table-striped table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key, value in statistics.to_dict().items() %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+</div>
+</body>
+
+</html>

@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  app:
+    volumes:
+      # Mounts the project folder to '/workspace'. The target path inside the container
+      # should match what your application expects. In this case, the compose file is
+      # in a sub-folder, so we will mount '..'. We'll then reference this as the
+      # workspaceFolder in '.devcontainer/devcontainer.json' so VS Code starts here.
+      # - ..:/workspace
+
+      # [Optional] If you are using SSH keys w/Git, mount your .ssh folder to
+      # /root/.ssh-localhost so we can copy its contents
+      - ~/.ssh:/root/.ssh-localhost:ro
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: /bin/sh -c "while sleep 1000; do :; done"

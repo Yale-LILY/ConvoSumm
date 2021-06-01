@@ -1,0 +1,24 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+	"name": "ReCAP Argument Mining",
+	"dockerComposeFile": [
+		"../docker-compose.yml",
+		"docker-compose.extend.yml"
+	],
+	"service": "app",
+	"workspaceFolder": "/app",
+	"extensions": [
+		"ms-python.python",
+		"redhat.vscode-yaml"
+	],
+	"settings": {
+		"python.pythonPath": "/usr/local/bin/python",
+		"python.formatting.blackPath": "/usr/local/bin/black",
+		"python.linting.mypyEnabled": false,
+		"python.formatting.provider": "black",
+		"python.linting.pylintEnabled": false,
+		"python.linting.enabled": true,
+		"python.jediEnabled": false
+	},
+	"postCreateCommand": "mkdir -p ~/.ssh && cp -r ~/.ssh-localhost/* ~/.ssh && chmod 700 ~/.ssh && chmod 600 ~/.ssh/*"
+}

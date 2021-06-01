@@ -1,0 +1,5 @@
+
+    hf_datasets = {}
+    hf_datasets['train'] = SummDataset("/private/home/alexfabbri/convosumm/Argument-Graph-Mining/acl2018_abssumm/truncated/train.source", "/private/home/alexfabbri/convosumm/Argument-Graph-Mining/acl2018_abssumm/truncated/train.target")
+    hf_datasets['validation'] = SummDataset("/private/home/alexfabbri/convosumm/Argument-Graph-Mining/acl2018_abssumm/truncated/val.source", "/private/home/alexfabbri/convosumm/Argument-Graph-Mining/acl2018_abssumm/truncated/val.target")
+    hf_datasets['test'] = SummDataset("/private/home/alexfabbri/convosumm/Argument-Graph-Mining/acl2018_abssumm/truncated/test.source", "/private/home/alexfabbri/convosumm/Argument-Graph-Mining/acl2018_abssumm/truncated/test.target")

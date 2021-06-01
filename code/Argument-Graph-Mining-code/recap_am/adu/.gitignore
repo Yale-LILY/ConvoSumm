@@ -1,0 +1,6 @@
+*.bin
+*.pyc
+*.gz
+/__pycache__
+.vscode/
+Word2Vec/

@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "recap_am"
+version = "0.1.0"
+description = ""
+authors = ["Mirko Lenz <info@mirko-lenz.de>"]
+license = "Apache-2.0"
+build = "build.py"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+numpy = "^1.16"
+scipy = "^1.3"
+flask = "^1.1"
+nltk = "^3.4"
+scikit-learn = "^0.22.0"
+matplotlib = "^3.1"
+tomlkit = "^0.5.5"
+spacy = "^2.2"
+pandas = "^0.25.3"
+recap-argument-graph = "^0.1.1"
+sentence-transformers = "^0.2.4"
+xgboost = "^0.90"
+edlib = "^1.3.8"
+packaging = "^20.3"
+
+[tool.poetry.dev-dependencies]
+black = {version = "^18.3-alpha.0", allow-prereleases = true}
+mypy = "^0.720.0"
+pylint = "^2.3"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"

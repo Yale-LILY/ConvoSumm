@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8888:80"
+    volumes:
+      - .:/app
+    command: python -m recap_am.server
