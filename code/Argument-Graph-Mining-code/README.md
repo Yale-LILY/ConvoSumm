@@ -1,5 +1,5 @@
 
-# Taken from [here](https://github.com/ReCAP-UTR/Argument-Graph-Mining).
+# Mostly from [here](https://github.com/ReCAP-UTR/Argument-Graph-Mining).
 
 # ReCAP Argument Graph Mining
 
