@@ -1,5 +1,5 @@
 # ConvoSumm
-Data, code, and model checkpoints for the ACL 2021 paper "ConvoSumm: Conversation Summarization Benchmark and Improved Abstractive Summarization with Argument Mining"
+Data, code, and model checkpoints for the ACL 2021 paper [ConvoSumm: Conversation Summarization Benchmark and Improved Abstractive Summarization with Argument Mining](https://arxiv.org/pdf/2106.00829.pdf)!
 </br>
 
 ## Data
@@ -19,7 +19,7 @@ aws s3 cp --recursive s3://convosumm/data/ ./data
 
 
 ## Code and Model Checkpoints
-Please see this [README](https://github.com/Yale-LILY/ConvoSumm/blob/main/code/README.md) for code details. </br>
+Please see this [README](https://github.com/Yale-LILY/ConvoSumm/blob/master/code/README.md) for code details. </br>
 
 Model checkpoints can be downloaded from the S3 bucket (~80GB): </br> 
 ```
