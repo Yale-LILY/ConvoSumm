@@ -351,6 +351,13 @@ def load_model_ensemble_and_task(
 
             # build model for ensemble
             model = task.build_model(cfg.model)
+            
+            cur_state = model.state_dict()['encoder.embed_positions.weight']
+            if cur_state.shape[0] > 1026:
+                encoder_pos = state['model']['encoder.embed_positions.weight']
+                to_append = encoder_pos[2:]
+                new_encoder_pos = torch.cat((encoder_pos, to_append))
+                state['model']['encoder.embed_positions.weight'] = new_encoder_pos           
 
             model.load_state_dict(state["model"], strict=strict, model_cfg=cfg.model)
 
