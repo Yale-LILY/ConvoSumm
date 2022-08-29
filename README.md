@@ -21,7 +21,7 @@ aws s3 cp --recursive s3://convosumm/data/ ./data
 ## Code and Model Checkpoints
 Please see this [README](https://github.com/Yale-LILY/ConvoSumm/blob/master/code/README.md) for code details. </br>
 
-Model checkpoints can be downloaded from the S3 bucket (~80GB) or from [this Google Drive link](https://drive.google.com/drive/folders/1y1p2JCNDjhPmbuOE0skYTojlaXvpyErg?usp=sharing): </br> 
+Model checkpoints can be downloaded from the S3 bucket (~80GB): </br> 
 ```
 aws s3 cp --recursive s3://convosumm/checkpoints/ ./checkpoints
 ```
